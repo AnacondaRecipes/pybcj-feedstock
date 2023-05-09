@@ -11,19 +11,18 @@ source:
   sha256: 8b682ed08caabfb7c042d4be083e28ddc692afb1deff5567111f8855071b75c3
 
 build:
-  number: 2
-  script: {{ PYTHON }} -m pip install . -vv
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   build:
-    - python                                 # [build_platform != target_platform]
-    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - {{ compiler('c') }}
   host:
     - pip
     - python
-    - setuptools >=42.0
-    - setuptools-scm >=3.5.0
+    - setuptools
+    - setuptools-scm 6.0.1
+    - wheel
   run:
     - importlib-metadata  # [py<38]
     - python
@@ -37,9 +36,17 @@ test:
     - pip
 
 about:
-  home: http://github.com/miurahr/pybcj
+  description: |
+    In data compression, BCJ, short for Branch-Call-Jump, refers to a technique that improves
+    the compression of machine code of executable binaries by replacing relative branch
+    addresses with absolute ones. This allows a LZMA compressor to identify duplicate targets
+    and archive higher compression rate.
+  home: https://codeberg.org/miurahr/pybcj
+  dev_url: https://codeberg.org/miurahr/pybcj
+  doc_url: https://codeberg.org/miurahr/pybcj/src/branch/main/README.rst
   summary: bcj filter library
   license: LGPL-2.1-or-later
+  license_family: LGPL
   license_file: LICENSE
 
 extra:
