@@ -1,18 +1,18 @@
 {% set name = "pybcj" %}
-{% set version = "1.0.1" %}
-
+{% set version = "1.0.6" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 8b682ed08caabfb7c042d4be083e28ddc692afb1deff5567111f8855071b75c3
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 70bbe2dc185993351955bfe8f61395038f96f5de92bb3a436acb01505781f8f2
 
 build:
-  number: 2
+  number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: true  # [py<39]
 
 requirements:
   build:
@@ -20,12 +20,15 @@ requirements:
   host:
     - pip
     - python
-    - setuptools
-    - setuptools-scm
+    - setuptools >=58
+    - setuptools-scm >=6.0.1
     - wheel
   run:
     - importlib-metadata  # [py<38]
     - python
+  run_constrained:
+    - mypy >=1.10.0
+    - flake8 <5
 
 test:
   imports:
