@@ -30,19 +30,15 @@ requirements:
     - mypy >=1.10.0
     - flake8 <5
 
+# Running pytest was deleted because  pypi package does not include tests folder. It is only available in the source code repository.
 test:
-  source_files:
-    - tests
   imports:
     - bcj
   requires:
     - pip
-    - pytest >=6.0
-    - hypothesis
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-    - pytest -v tests
 
 about:
   home: https://codeberg.org/miurahr/pybcj
